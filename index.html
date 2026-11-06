@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Gnus Gladiators Playbook</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/nocturne-98ad54de-9236-4429-a092-48e7be4e91d7/styles.css">
+<script src="_ds/nocturne-98ad54de-9236-4429-a092-48e7be4e91d7/_ds_bundle.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<script src="./image-slot.js"></script>
+<style>
+body{margin:0;background:#0c0d0f;}
+a{color:#e8e9ec;text-decoration:none;}
+a:hover{color:#fafafa;text-shadow:0 0 10px rgba(250,250,250,.55);}
+</style>
+</helmet>
+<div style="--color-bg:#0c0d0f;--color-surface:#16171a;--color-text:#e8e9ec;--color-accent:#f4f5f7;--color-accent-100:#fafafa;--color-accent-300:#d9dadf;--color-accent-400:#e6e7ea;--color-accent-800:#2b2c31;--color-accent-900:#1c1d21;--color-divider:color-mix(in srgb,#e8e9ec 14%,transparent);--shadow-lg:0 0 0 1px #3a3b40,0 16px 40px rgba(0,0,0,.7);min-height:100vh;background:radial-gradient(1200px 500px at 15% -10%,#1b1c20 0%,transparent 60%),var(--color-bg);color:var(--color-text);font-family:var(--font-body);">
+
+  <header class="nav" style="position:sticky;top:0;z-index:5;background:color-mix(in srgb,#0c0d0f 88%,transparent);backdrop-filter:blur(10px);flex-wrap:wrap;gap:var(--space-3);">
+    <a href="#/" onClick="{{ goHome }}" style="display:flex;align-items:center;gap:var(--space-3);margin-right:auto;text-shadow:none;">
+      <img src="assets/logo.jpg" alt="Gnus Gladiators" style="width:44px;height:44px;border-radius:var(--radius-md);display:block;box-shadow:0 0 0 1px #2b2c31,0 0 18px rgba(244,245,247,.12);">
+      <div style="display:flex;flex-direction:column;gap:2px;">
+        <span style="font-family:var(--font-heading);font-weight:500;font-size:17px;letter-spacing:.14em;text-transform:uppercase;color:#f4f5f7;text-shadow:0 0 14px rgba(244,245,247,.45);">Gnus Gladiators</span>
+        <span style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#8e9096;">Playbook · CS2</span>
+      </div>
+    </a>
+    <div style="display:flex;gap:var(--space-2);align-items:center;">
+      <button class="btn btn-secondary" onClick="{{ exportData }}" title="Baixar backup das táticas"><i class="ph ph-download-simple"></i>Exportar</button>
+      <button class="btn btn-secondary" onClick="{{ pickImport }}" title="Carregar backup"><i class="ph ph-upload-simple"></i>Importar</button>
+      <input type="file" accept="application/json" ref="{{ fileRef }}" onChange="{{ importData }}" style="display:none;">
+    </div>
+  </header>
+
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+    <main style="max-width:1240px;padding:calc(var(--space-8) * 2) var(--space-8) calc(var(--space-8) * 3);margin:0 auto;display:flex;flex-direction:column;gap:calc(var(--space-8) * 2);">
+      <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:var(--space-8);align-items:center;">
+        <div style="display:flex;flex-direction:column;gap:var(--space-3);max-width:520px;">
+          <span class="card-kicker" style="text-shadow:0 0 10px rgba(244,245,247,.5);">Central tática</span>
+          <p style="margin:0;font-size:15px;line-height:1.55;color:#a4a6ac;text-wrap:pretty;">Padrões, pistols e granadas do time organizados por mapa e por lado. Adicione direto aqui — vídeo do YouTube, Instagram ou texto.</p>
+        </div>
+        <div class="lighten" style="border-radius:var(--radius-lg);overflow:hidden;-webkit-mask-image:linear-gradient(to bottom,#000 70%,transparent);mask-image:linear-gradient(to bottom,#000 70%,transparent);">
+          <img src="assets/time.png" alt="Line-up Gnus Gladiators" style="width:100%;display:block;filter:grayscale(1) contrast(1.05);">
+        </div>
+      </section>
+
+      <section style="display:flex;flex-direction:column;gap:var(--space-3);">
+        <div style="display:flex;align-items:baseline;gap:var(--space-3);">
+          <h2 style="margin:0;font-size:22px;">Map pool</h2>
+        </div>
+        <div style="height:1px;background:linear-gradient(to right,transparent,var(--color-divider) 48px,var(--color-divider) calc(100% - 48px),transparent);"></div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:var(--space-4);">
+          <sc-for list="{{ maps }}" as="m" hint-placeholder-count="7">
+            <article class="card" onClick="{{ m.open }}" style="cursor:pointer;padding:0;gap:0;overflow:hidden;box-shadow:0 0 0 1px #26272c;transition:box-shadow .2s,transform .2s;" style-hover="box-shadow:0 0 0 1px #f4f5f7,0 0 28px rgba(244,245,247,.18);transform:translateY(-2px);">
+              <div style="position:relative;aspect-ratio:16/10;display:grid;place-items:center;padding:var(--space-8);background:radial-gradient(circle at 50% 55%,#1f2024 0%,#101114 70%);">
+                {{ m.logoImg }}
+                <span style="position:absolute;top:10px;left:10px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:6px;background:rgba(12,13,15,.75);color:#d9dadf;pointer-events:none;">{{ m.code }}</span>
+              </div>
+              <button onClick="{{ m.open }}" style="all:unset;cursor:pointer;box-sizing:border-box;width:100%;display:flex;align-items:center;gap:var(--space-2);padding:var(--space-3);" style-focus="outline:2px solid #f4f5f7;outline-offset:-2px;">
+                <div style="display:flex;flex-direction:column;gap:3px;margin-right:auto;">
+                  <span class="card-title" style="font-size:19px;letter-spacing:.02em;">{{ m.name }}</span>
+                  <span class="card-meta" style="margin:0;">{{ m.countLabel }}</span>
+                </div>
+                <i class="ph ph-arrow-right" style="font-size:18px;color:#f4f5f7;"></i>
+              </button>
+            </article>
+          </sc-for>
+        </div>
+      </section>
+    </main>
+  </sc-if>
+
+  <sc-if value="{{ isMap }}" hint-placeholder-val="{{ false }}">
+    <main style="max-width:1240px;padding:var(--space-8) var(--space-8) calc(var(--space-8) * 3);margin:0 auto;display:flex;flex-direction:column;gap:var(--space-8);">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:var(--space-8);align-items:end;">
+        <div style="display:flex;flex-direction:column;gap:var(--space-3);">
+          <button class="btn btn-ghost" onClick="{{ goHome }}" style="align-self:flex-start;"><i class="ph ph-arrow-left"></i>Mapas</button>
+          <span class="card-kicker" style="text-shadow:0 0 10px rgba(244,245,247,.5);">{{ cur.code }}</span>
+          <h1 style="margin:0;font-size:clamp(40px,6vw,72px);line-height:1;letter-spacing:.01em;color:#fafafa;text-shadow:0 0 26px rgba(244,245,247,.35);">{{ cur.name }}</h1>
+          <span style="font-size:13px;color:#8e9096;">{{ cur.countLabel }}</span>
+        </div>
+        <div style="position:relative;aspect-ratio:21/9;border-radius:var(--radius-lg);overflow:hidden;box-shadow:0 0 0 1px #26272c;display:grid;place-items:center;padding:var(--space-8);background:radial-gradient(circle at 50% 55%,#1f2024 0%,#101114 70%);">
+          {{ cur.logoImg }}
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:var(--space-3);">
+        <sc-for list="{{ cats }}" as="c" hint-placeholder-count="3">
+          <button class="card" onClick="{{ c.select }}" style="all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;gap:var(--space-2);padding:var(--space-3);border-radius:var(--radius-md);background:{{ c.bg }};box-shadow:{{ c.ring }};transition:box-shadow .2s;" style-hover="box-shadow:0 0 0 1px #8e9096;" style-focus="outline:2px solid #f4f5f7;outline-offset:2px;">
+            <div style="display:flex;align-items:center;gap:var(--space-2);">
+              <i class="ph {{ c.icon }}" style="font-size:20px;color:#f4f5f7;"></i>
+              <span class="card-title" style="margin-right:auto;">{{ c.label }}</span>
+              <span class="tag tag-neutral">{{ c.count }}</span>
+            </div>
+            <span style="font-size:12px;line-height:1.45;color:#a4a6ac;">{{ c.desc }}</span>
+          </button>
+        </sc-for>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-3);">
+        <div style="position:relative;flex:1 1 280px;max-width:420px;">
+          <i class="ph ph-magnifying-glass" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:16px;color:#8e9096;pointer-events:none;"></i>
+          <input class="input" type="search" value="{{ query }}" onChange="{{ setQuery }}" placeholder="{{ searchPh }}" style="padding-left:32px;">
+        </div>
+        <sc-if value="{{ isNadeCat }}" hint-placeholder-val="{{ false }}">
+          <div class="seg" style="flex-wrap:wrap;">
+            <sc-for list="{{ filterOpts }}" as="o" hint-placeholder-count="5">
+              <label class="seg-opt"><input type="radio" name="nadefilter" checked="{{ o.checked }}" onChange="{{ o.pick }}" style="position:absolute;opacity:0;pointer-events:none;">{{ o.label }}<span style="font-size:11px;color:#8e9096;">{{ o.count }}</span></label>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:var(--space-8);">
+        <sc-for list="{{ sides }}" as="s" hint-placeholder-count="2">
+          <section style="display:flex;flex-direction:column;gap:var(--space-3);">
+            <div style="display:flex;align-items:center;gap:var(--space-3);">
+              <span style="font-size:13px;font-weight:500;letter-spacing:.12em;padding:4px 10px;border:1px solid #f4f5f7;border-radius:6px;color:#fafafa;box-shadow:0 0 14px rgba(244,245,247,.2);">{{ s.key }}</span>
+              <h2 style="margin:0;font-size:18px;margin-right:auto;">{{ s.label }}</h2>
+              <button class="btn btn-primary" onClick="{{ s.add }}"><i class="ph ph-plus"></i>Adicionar</button>
+            </div>
+            <div style="height:1px;background:linear-gradient(to right,transparent,var(--color-divider) 48px,var(--color-divider) calc(100% - 48px),transparent);"></div>
+            <sc-if value="{{ s.empty }}" hint-placeholder-val="{{ false }}">
+              <button onClick="{{ s.add }}" style="all:unset;cursor:pointer;display:flex;align-items:center;gap:var(--space-2);padding:var(--space-4);border:1px dashed #3a3b40;border-radius:var(--radius-md);color:#8e9096;font-size:13px;" style-hover="border-color:#f4f5f7;color:#e8e9ec;">
+                <i class="ph ph-plus-circle" style="font-size:18px;"></i>{{ s.emptyLabel }}
+              </button>
+            </sc-if>
+            <sc-if value="{{ s.noMatch }}" hint-placeholder-val="{{ false }}">
+              <span style="font-size:13px;color:#8e9096;padding:var(--space-3) 0;">Nada encontrado com esse filtro.</span>
+            </sc-if>
+            <sc-for list="{{ s.items }}" as="it" hint-placeholder-count="0">
+              <article class="card" style="box-shadow:0 0 0 1px #26272c;">
+                <div style="display:flex;gap:var(--space-3);align-items:flex-start;">
+                  <sc-if value="{{ it.hasThumb }}" hint-placeholder-val="{{ false }}">
+                    <a href="{{ it.url }}" target="_blank" rel="noopener" style="position:relative;flex:none;width:150px;aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:#101114;display:block;">
+                      {{ it.thumbImg }}
+                      <i class="ph ph-play-circle" style="position:absolute;inset:0;display:grid;place-items:center;font-size:34px;color:#fafafa;text-shadow:0 0 12px rgba(0,0,0,.7);"></i>
+                    </a>
+                  </sc-if>
+                  <div style="display:flex;flex-direction:column;gap:var(--space-2);flex:1;min-width:0;">
+                    <div style="display:flex;align-items:center;gap:var(--space-2);flex-wrap:wrap;">
+                      <span class="card-title" style="font-size:15px;margin-right:auto;overflow-wrap:anywhere;">{{ it.title }}</span>
+                      <sc-if value="{{ it.hasType }}" hint-placeholder-val="{{ false }}"><span class="tag tag-outline">{{ it.type }}</span></sc-if>
+                      <span class="tag tag-neutral"><i class="ph {{ it.icon }}" style="margin-right:4px;"></i>{{ it.kind }}</span>
+                    </div>
+                    <sc-if value="{{ it.hasText }}" hint-placeholder-val="{{ false }}">
+                      <p class="card-body" style="white-space:pre-wrap;line-height:1.5;">{{ it.text }}</p>
+                    </sc-if>
+                    <div style="display:flex;align-items:center;gap:var(--space-2);">
+                      <sc-if value="{{ it.hasUrl }}" hint-placeholder-val="{{ false }}">
+                        <a href="{{ it.url }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;font-size:12px;margin-right:auto;"><i class="ph ph-arrow-square-out"></i>{{ it.linkLabel }}</a>
+                      </sc-if>
+                      <sc-if value="{{ it.noUrl }}" hint-placeholder-val="{{ false }}"><span style="margin-right:auto;"></span></sc-if>
+                      <button class="btn btn-ghost btn-icon" onClick="{{ it.edit }}" title="Editar" style="width:30px;height:30px;"><i class="ph ph-pencil-simple"></i></button>
+                      <button class="btn btn-ghost btn-icon" onClick="{{ it.remove }}" title="Excluir" style="width:30px;height:30px;color:#a4a6ac;"><i class="ph ph-trash"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </sc-for>
+          </section>
+        </sc-for>
+      </div>
+    </main>
+  </sc-if>
+
+  <sc-if value="{{ dialogOpen }}" hint-placeholder-val="{{ false }}">
+    <div class="dialog-backdrop" onClick="{{ closeDialog }}" style="z-index:20;background:rgba(6,6,8,.72);">
+      <form class="dialog" onClick="{{ stop }}" onSubmit="{{ save }}" style="width:min(520px,100%);">
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <span class="card-kicker">{{ dlgKicker }}</span>
+          <span class="dialog-title">{{ dlgTitle }}</span>
+        </div>
+        <div class="field">
+          <label>Lado</label>
+          <div class="seg">
+            <sc-for list="{{ sideOpts }}" as="o" hint-placeholder-count="2">
+              <label class="seg-opt"><input type="radio" name="side" checked="{{ o.checked }}" onChange="{{ o.pick }}" style="position:absolute;opacity:0;pointer-events:none;">{{ o.label }}</label>
+            </sc-for>
+          </div>
+        </div>
+        <sc-if value="{{ isNade }}" hint-placeholder-val="{{ false }}">
+          <div class="field">
+            <label>Tipo de granada</label>
+            <div class="seg" style="flex-wrap:wrap;">
+              <sc-for list="{{ nadeOpts }}" as="o" hint-placeholder-count="4">
+                <label class="seg-opt"><input type="radio" name="nade" checked="{{ o.checked }}" onChange="{{ o.pick }}" style="position:absolute;opacity:0;pointer-events:none;">{{ o.label }}</label>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+        <div class="field">
+          <label>Título</label>
+          <input class="input" value="{{ fTitle }}" onChange="{{ setTitle }}" placeholder="{{ titlePh }}" required="{{ true }}" autoFocus="{{ true }}">
+        </div>
+        <div class="field">
+          <label>Link (YouTube, Instagram…) — opcional</label>
+          <input class="input" type="url" value="{{ fUrl }}" onChange="{{ setUrl }}" placeholder="https://youtube.com/watch?v=…">
+        </div>
+        <div class="field">
+          <label>Descrição / texto do padrão — opcional</label>
+          <textarea class="input" rows="5" value="{{ fText }}" onChange="{{ setText }}" placeholder="Ex.: 2 B, 1 meio, 2 A. Smoke CT + flash banana aos 1:30…" style="resize:vertical;line-height:1.5;font-family:inherit;"></textarea>
+        </div>
+        <sc-if value="{{ formError }}" hint-placeholder-val="{{ false }}">
+          <span style="font-size:12px;color:#d9dadf;">Adicione um link ou uma descrição.</span>
+        </sc-if>
+        <div class="dialog-actions">
+          <button type="button" class="btn btn-secondary" onClick="{{ closeDialog }}">Cancelar</button>
+          <button type="submit" class="btn btn-primary"><i class="ph ph-check"></i>Salvar</button>
+        </div>
+      </form>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const MAPS = ['Ancient','Anubis','Cache','Dust 2','Inferno','Mirage','Nuke'].sort((a,b)=>a.localeCompare(b));
+const CODES = { Ancient:'de_ancient', Anubis:'de_anubis', Cache:'de_cache', 'Dust 2':'de_dust2', Inferno:'de_inferno', Mirage:'de_mirage', Nuke:'de_nuke' };
+const CATS = [
+  { key:'padrao', label:'Padrão do mapa', icon:'ph-strategy', desc:'Setups e execuções padrão por lado.', ph:'Ex.: Default B com split banana' },
+  { key:'pistol', label:'Pistol', icon:'ph-crosshair', desc:'Rounds de pistol — compra, posição e jogada.', ph:'Ex.: Pistol rush A com flashes' },
+  { key:'granadas', label:'Granadas', icon:'ph-fire', desc:'Smokes, flashes, molotovs e HEs com lineup.', ph:'Ex.: Smoke CT saindo do spawn' }
+];
+const NADES = ['Smoke','Flash','Molotov','HE'];
+const SIDES = { CT:'Contra-Terroristas', TR:'Terroristas' };
+const KEY = 'gnus-playbook-v1';
+const logoImg = n => React.createElement('img', { src: 'assets/maps/' + n.toLowerCase().replace(/\s+/g,'') + '.webp', alt: 'Logo ' + n, style: { position:'absolute', inset:'var(--space-8)', width:'calc(100% - 2 * var(--space-8))', height:'calc(100% - 2 * var(--space-8))', objectFit:'contain', display:'block', filter:'drop-shadow(0 8px 20px rgba(0,0,0,.6))' } });
+const slug = n => n.toLowerCase().replace(/\s+/g,'');
+const ytId = u => { const m = (u||'').match(/(?:youtu\.be\/|[?&]v=|shorts\/|embed\/|live\/)([\w-]{11})/); return m ? m[1] : null; };
+const platform = u => !u ? null : /youtu/.test(u) ? 'youtube' : /instagram/.test(u) ? 'instagram' : 'link';
+
+class Component extends DCLogic {
+  state = { data: {}, map: null, cat: 'padrao', dlg: null, fTitle:'', fUrl:'', fText:'', fSide:'CT', fNade:'Smoke', formError:false, query:'', nadeFilter:'Todas' };
+  fileRef = React.createRef();
+
+  componentDidMount() {
+    try { this.setState({ data: JSON.parse(localStorage.getItem(KEY)) || {} }); } catch(e) {}
+    this.onHash = () => {
+      const m = location.hash.match(/#\/mapa\/([\w]+)/);
+      const map = m && MAPS.find(n => slug(n) === m[1]);
+      this.setState({ map: map || null });
+      window.scrollTo(0,0);
+    };
+    window.addEventListener('hashchange', this.onHash);
+    this.onHash();
+    this.onKey = e => { if (e.key === 'Escape' && this.state.dlg) this.setState({ dlg:null }); };
+    window.addEventListener('keydown', this.onKey);
+  }
+  componentWillUnmount() { window.removeEventListener('hashchange', this.onHash); window.removeEventListener('keydown', this.onKey); }
+
+  persist(data) { this.setState({ data }); try { localStorage.setItem(KEY, JSON.stringify(data)); } catch(e) {} }
+  list(map, cat, side) { return ((this.state.data[slug(map)]||{})[cat]||{})[side] || []; }
+  countMap(map) { const d = this.state.data[slug(map)] || {}; let n = 0; Object.values(d).forEach(c => Object.values(c).forEach(a => n += a.length)); return n; }
+  countCat(map, cat) { return this.list(map,cat,'CT').length + this.list(map,cat,'TR').length; }
+  filtered(map, side) {
+    const s = this.state, q = s.query.trim().toLowerCase();
+    return this.list(map, s.cat, side).filter(it =>
+      (s.cat !== 'granadas' || s.nadeFilter === 'Todas' || it.type === s.nadeFilter) &&
+      (!q || (it.title + ' ' + (it.text||'') + ' ' + (it.type||'')).toLowerCase().includes(q)));
+  }
+  go(map) { location.hash = map ? '#/mapa/' + slug(map) : '#/'; }
+
+  openDialog(side, item) {
+    this.setState({ dlg: { side, id: item ? item.id : null, origSide: side }, fSide: side, fTitle: item ? item.title : '', fUrl: item ? item.url || '' : '', fText: item ? item.text || '' : '', fNade: item && item.type ? item.type : 'Smoke', formError:false });
+  }
+  save(e) {
+    e.preventDefault();
+    const s = this.state, { map, cat, dlg } = s;
+    if (!s.fUrl.trim() && !s.fText.trim()) return this.setState({ formError:true });
+    const data = JSON.parse(JSON.stringify(s.data));
+    const k = slug(map); data[k] = data[k] || {}; data[k][cat] = data[k][cat] || { CT:[], TR:[] };
+    const bucket = data[k][cat];
+    bucket.CT = bucket.CT || []; bucket.TR = bucket.TR || [];
+    const entry = { id: dlg.id || Date.now().toString(36) + Math.random().toString(36).slice(2,6), title: s.fTitle.trim(), url: s.fUrl.trim(), text: s.fText.trim(), type: cat === 'granadas' ? s.fNade : null };
+    if (dlg.id) bucket[dlg.origSide] = bucket[dlg.origSide].filter(x => x.id !== dlg.id);
+    if (dlg.id && dlg.origSide === s.fSide) {
+      const orig = this.list(map, cat, dlg.origSide); const i = orig.findIndex(x => x.id === dlg.id);
+      bucket[s.fSide].splice(Math.max(0,i), 0, entry);
+    } else bucket[s.fSide].push(entry);
+    this.persist(data); this.setState({ dlg:null });
+  }
+  remove(side, id) {
+    if (!confirm('Excluir esta entrada?')) return;
+    const data = JSON.parse(JSON.stringify(this.state.data)), { map, cat } = this.state;
+    data[slug(map)][cat][side] = data[slug(map)][cat][side].filter(x => x.id !== id);
+    this.persist(data);
+  }
+  exportData() {
+    const blob = new Blob([JSON.stringify(this.state.data, null, 2)], { type:'application/json' });
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+    a.download = 'gnus-playbook-' + new Date().toISOString().slice(0,10) + '.json'; a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  }
+  importData(e) {
+    const f = e.target.files && e.target.files[0]; if (!f) return;
+    f.text().then(t => { try { const d = JSON.parse(t); if (confirm('Substituir as táticas atuais pelo backup?')) this.persist(d); } catch(err) { alert('Arquivo inválido.'); } });
+    e.target.value = '';
+  }
+
+  renderVals() {
+    const s = this.state, map = s.map;
+    const plural = n => n === 1 ? '1 tática' : n + ' táticas';
+    const maps = MAPS.map(n => ({ name:n, code:CODES[n], slot:'map-' + slug(n), logoImg: logoImg(n), countLabel: plural(this.countMap(n)), open: () => this.go(n) }));
+    const totalEntries = MAPS.reduce((a,n) => a + this.countMap(n), 0);
+    const catDef = CATS.find(c => c.key === s.cat);
+    const cats = CATS.map(c => {
+      const on = c.key === s.cat;
+      return { ...c, count: map ? this.countCat(map, c.key) : 0, select: () => this.setState({ cat:c.key, query:'', nadeFilter:'Todas' }),
+        bg: on ? '#1c1d21' : 'var(--color-surface)', ring: on ? '0 0 0 1px #f4f5f7, 0 0 24px rgba(244,245,247,.16)' : '0 0 0 1px #26272c' };
+    });
+    const sides = map ? ['CT','TR'].map(k => ({
+      key:k, label:SIDES[k], add: () => this.openDialog(k),
+      empty: this.list(map, s.cat, k).length === 0,
+      noMatch: this.list(map, s.cat, k).length > 0 && this.filtered(map, k).length === 0,
+      emptyLabel: 'Nenhuma entrada de ' + catDef.label.toLowerCase() + ' para ' + k + ' ainda',
+      items: this.filtered(map, k).map(it => {
+        const p = platform(it.url), yt = ytId(it.url);
+        return { ...it, hasThumb: !!yt, thumbImg: yt ? React.createElement('img', { src: 'https://img.youtube.com/vi/' + yt + '/hqdefault.jpg', alt: '', style: { width:'100%', height:'100%', objectFit:'cover', display:'block', filter:'grayscale(.6)' } }) : null, thumb: yt ? 'https://img.youtube.com/vi/' + yt + '/hqdefault.jpg' : '',
+          hasUrl: !!it.url, noUrl: !it.url, hasText: !!it.text, hasType: !!it.type,
+          kind: p === 'youtube' ? 'YouTube' : p === 'instagram' ? 'Instagram' : p === 'link' ? 'Link' : 'Texto',
+          icon: p === 'youtube' ? 'ph-youtube-logo' : p === 'instagram' ? 'ph-instagram-logo' : p === 'link' ? 'ph-link' : 'ph-text-align-left',
+          linkLabel: p === 'youtube' ? 'Abrir no YouTube' : p === 'instagram' ? 'Abrir no Instagram' : 'Abrir link',
+          edit: () => this.openDialog(k, it), remove: () => this.remove(k, it.id) };
+      })
+    })) : [];
+    const cur = map ? { name:map, code:CODES[map], slot:'map-' + slug(map), logoImg: logoImg(map), countLabel: plural(this.countMap(map)) } : {};
+    return {
+      isHome: !map, isMap: !!map, maps, cur, cats, sides,
+      query: s.query, setQuery: e => this.setState({ query: e.target.value }),
+      searchPh: s.cat === 'granadas' ? 'Buscar granada (ex.: Rato)' : 'Buscar em ' + (catDef ? catDef.label.toLowerCase() : ''),
+      isNadeCat: s.cat === 'granadas',
+      filterOpts: ['Todas', ...NADES].map(n => ({ label:n, checked: s.nadeFilter === n, pick: () => this.setState({ nadeFilter:n }),
+        count: map ? ['CT','TR'].reduce((a,k) => a + this.list(map,'granadas',k).filter(it => n === 'Todas' || it.type === n).length, 0) : 0 })),
+      goHome: e => { e && e.preventDefault(); this.go(null); },
+      exportData: () => this.exportData(), pickImport: () => this.fileRef.current && this.fileRef.current.click(),
+      importData: e => this.importData(e), fileRef: this.fileRef,
+      dialogOpen: !!s.dlg, closeDialog: () => this.setState({ dlg:null }), stop: e => e.stopPropagation(),
+      dlgKicker: map ? map + ' · ' + (catDef ? catDef.label : '') : '',
+      dlgTitle: s.dlg && s.dlg.id ? 'Editar entrada' : 'Nova entrada',
+      titlePh: catDef ? catDef.ph : '',
+      isNade: s.cat === 'granadas',
+      sideOpts: ['CT','TR'].map(k => ({ label: k + ' — ' + SIDES[k], checked: s.fSide === k, pick: () => this.setState({ fSide:k }) })),
+      nadeOpts: NADES.map(n => ({ label:n, checked: s.fNade === n, pick: () => this.setState({ fNade:n }) })),
+      fTitle: s.fTitle, fUrl: s.fUrl, fText: s.fText, formError: s.formError,
+      setTitle: e => this.setState({ fTitle:e.target.value }), setUrl: e => this.setState({ fUrl:e.target.value, formError:false }), setText: e => this.setState({ fText:e.target.value, formError:false }),
+      save: e => this.save(e)
+    };
+  }
+}
+</script>
+</body>
+</html>
